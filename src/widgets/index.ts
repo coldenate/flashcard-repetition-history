@@ -4,6 +4,14 @@ async function onActivate(plugin: ReactRNPlugin) {
 	// settings
 
 	await plugin.settings.registerBooleanSetting({
+		id: 'show-past-Response',
+		title: 'Show Past Response',
+		description:
+			'Show the past response of a flashcard by highlighting the corresponding response button when viewing the responses for a flashard.',
+		defaultValue: true,
+	});
+
+	await plugin.settings.registerBooleanSetting({
 		id: 'debug-mode',
 		title: 'Debug Mode',
 		description: 'Enables certain testing commands. Non-destructive.',
