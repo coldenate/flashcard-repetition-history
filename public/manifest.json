@@ -1,0 +1,25 @@
+{
+	"manifestVersion": 1,
+	"id": "plugin-id",
+	"name": "Plugin Name",
+	"author": "Your Name",
+	"repoUrl": "The Github Repo URL for your plugin (plugins have to be open source",
+	"supportUrl": "The URL for your support site (can literally just be your github repo + /issues)",
+	"projectUrl": "optional. can be a website you made for your plugin.",
+	"changeLogUrl": "optional. can be a change log website you made for your plugin.",
+	"version": {
+		"major": 0,
+		"minor": 0,
+		"patch": 1
+	},
+	"theme": [],
+	"enableOnMobile": true,
+	"description": "Have a good description!",
+	"requestNative": false,
+	"requiredScopes": [
+		{
+			"type": "All",
+			"level": "ReadCreateModify"
+		}
+	]
+}
