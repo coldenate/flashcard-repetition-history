@@ -1,5 +1,5 @@
 <h1 align="center">
-	<img src="https://raw.githubusercontent.com/coldenate/flashcard-repetition-history/main/assets/logo.png" alt="Flashcard Repetition History Logo">
+	<img src="https://raw.githubusercontent.com/coldenate/flashcard-repetition-history/main/public/logo.png" alt="Flashcard Repetition History Logo">
 </h1>
 
 <h3 align="center">
