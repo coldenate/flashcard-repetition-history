@@ -1,0 +1,90 @@
+body {
+	font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+body.dark {
+	background-color: transparent;
+}
+
+.square {
+	height: 20px !important;
+	width: 20px !important;
+	margin: 5px !important;
+	border-radius: 5px !important;
+}
+
+#legend {
+	background-color: var(--rn-clr-background-secondary) !important;
+	border-radius: 8px !important;
+	/* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important; */ /* relies on margins */
+	/* line-height: normal !important; */
+	/* justify-content: center !important; */
+	width: max-content !important;
+	padding: 5px !important;
+	/* hey, just a quick note, this css is absolutely not maintainable rn,. it's copied over from the anki version of this plugin for rapid prototyping. */
+}
+
+#legend-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+
+	/* display: flex !important;
+	align-items: center !important; */
+}
+
+#squares {
+	/* display: flex !important; */
+	/* align-items: center !important; */
+	max-width: 660px !important;
+	flex-wrap: wrap !important;
+}
+
+.tooltip {
+	position: relative !important;
+	display: inline-block !important;
+}
+
+.tooltip .tooltiptext {
+	visibility: hidden !important;
+	width: 200px !important;
+	max-width: 700px !important;
+	background-color: black !important;
+	color: #fff !important;
+	text-align: center !important;
+	border-radius: 6px !important;
+	padding: 5px 0 !important;
+	position: absolute !important;
+	z-index: 1 !important;
+	top: 200% !important;
+	left: 50% !important;
+	font-size: 20px !important;
+	margin-left: -100px !important;
+	line-height: normal !important;
+}
+
+.tooltip .tooltiptext::after {
+	content: '' !important;
+	position: absolute !important;
+	bottom: 100% !important;
+	left: 50% !important;
+	margin-left: -5px !important;
+	border-width: 5px !important;
+	border-style: solid !important;
+	border-color: transparent transparent black transparent !important;
+}
+
+.tooltip:hover .tooltiptext {
+	visibility: visible !important;
+}
+
+.legend-label {
+	/* not used*/
+	display: flex !important;
+	align-items: center !important;
+	text-align: center !important;
+	font-weight: 1000 !important;
+	font-size: 15px !important;
+	padding-left: 8px !important;
+	color: #cacaca !important;
+}
