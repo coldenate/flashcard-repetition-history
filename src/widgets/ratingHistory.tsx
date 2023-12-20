@@ -7,6 +7,8 @@ import {
 } from '@remnote/plugin-sdk';
 import { useEffect, useState } from 'react';
 
+let cachedStyles;
+
 function scoreToStringClassMatch(score: number) {
 	let stringScore = '';
 	switch (score) {
@@ -125,7 +127,18 @@ function RatingHistoryWidget() {
 renderWidget(RatingHistoryWidget);
 
 function applyCSS(plugin: RNPlugin) {
-	const styles = require('../style.css');
+	if (cachedStyles === null) {
+		fetch(`${plugin.rootURL}App.css`)
+			.then((response) => response.text())
+			.then((css) => {
+				cachedStyles = css;
+			})
+			.catch((error) => {
+				console.error('Failed to fetch CSS file:', error);
+			});
+	}
+
+	const styles = cachedStyles;
 
 	const extraCSS = useRunAsync(async () => {
 		return `
