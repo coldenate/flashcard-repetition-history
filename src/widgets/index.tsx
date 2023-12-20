@@ -10,6 +10,13 @@ async function onActivate(plugin: ReactRNPlugin) {
 	// settings
 
 	await plugin.settings.registerBooleanSetting({
+		id: 'debug-mode',
+		title: 'Debug Mode (Flashcard History)',
+		description: 'Enable debug mode',
+		defaultValue: false,
+	});
+
+	await plugin.settings.registerBooleanSetting({
 		id: 'show-past-Response',
 		title: 'Show Past Response',
 		description:
