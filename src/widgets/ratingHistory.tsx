@@ -19,10 +19,10 @@ function scoreToStringClassMatch(score: number) {
 			stringScore = 'good';
 			break;
 		case 0.5:
-			stringScore = 'easy';
+			stringScore = 'hard';
 			break;
 		case 1.5:
-			stringScore = 'hard';
+			stringScore = 'easy';
 			break;
 		case 3:
 			stringScore = 'reset';
