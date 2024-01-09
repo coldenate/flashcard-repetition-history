@@ -46,13 +46,13 @@ function scoreToColorClassMatch(score: number) {
 			stringColor = 'red';
 			break;
 		case 1:
-			stringColor = 'blue';
+			stringColor = 'green';
 			break;
 		case 0.5:
 			stringColor = 'orange';
 			break;
 		case 1.5:
-			stringColor = 'green';
+			stringColor = 'blue';
 			break;
 		case 3:
 			stringColor = 'purple';
