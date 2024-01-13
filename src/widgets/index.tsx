@@ -101,7 +101,7 @@ async function onActivate(plugin: ReactRNPlugin) {
 	plugin.track(async (reactivePlugin) => {
 		const alwaysShowSquares = await reactivePlugin.settings.getSetting('always-show-squares');
 		if (!alwaysShowSquares) {
-			await plugin.app.registerWidget('ratingHistory', WidgetLocation.FlashcardExtraDetail, {
+			await plugin.app.registerWidget('ratingHistory', WidgetLocation.FlashcardUnder, {
 				dimensions: {
 					width: '100%',
 					height: '100%',
@@ -115,7 +115,7 @@ async function onActivate(plugin: ReactRNPlugin) {
 					height: '100%',
 				},
 			});
-			await plugin.app.unregisterWidget('ratingHistory', WidgetLocation.FlashcardExtraDetail);
+			await plugin.app.unregisterWidget('ratingHistory', WidgetLocation.FlashcardUnder);
 		}
 		await isDebugMode(reactivePlugin).then(async (debugMode) => {
 			if (debugMode) {
