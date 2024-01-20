@@ -88,7 +88,6 @@ function scoreToColorClassMatch(score: number) {
 
 function RatingHistoryWidget() {
 	const plugin = usePlugin();
-	applyCSS(plugin); // Enumeration: QueueInteractionScore
 
 	const [loading, setLoading] = useState(true);
 	const inheritFromHighlightColors = useRunAsync(async () => {
@@ -111,7 +110,7 @@ function RatingHistoryWidget() {
 		}
 	}, [repetitionHistory]);
 
-	if (loading) {
+	if (loading || !repetitionHistory) {
 		return <></>;
 	}
 
@@ -119,24 +118,20 @@ function RatingHistoryWidget() {
 		<div id="legend-container">
 			<div id="legend">
 				<div id="squares">
-					{/* for reach repetition history, build a square accordingly
-           <div class="square square-{score} tooltip">
-            <span class="tooltiptext">{score}</span>
-          </div> */}
-
+					{/* for each repetition history, build a square accordingly */}
 					{repetitionHistory.map((history) => {
+						let className: string = '';
+						let tooltipText = scoreToStringClassMatch(history.score, true);
+
+						if (inheritFromHighlightColors) {
+							className = scoreToColorClassMatch(history.score);
+						} else {
+							className = scoreToStringClassMatch(history.score);
+						}
+
 						return (
-							<div
-								className={`square ${
-									inheritFromHighlightColors
-										? scoreToColorClassMatch(history.score)
-										: scoreToStringClassMatch(history.score)
-								} tooltip`}
-								key={history.date}
-							>
-								<span className="tooltiptext">
-									{scoreToStringClassMatch(history.score, true)}
-								</span>
+							<div className={className} key={history.date}>
+								<span className="tooltiptext">{tooltipText}</span>
 							</div>
 						);
 					})}
@@ -146,60 +141,3 @@ function RatingHistoryWidget() {
 	);
 }
 renderWidget(RatingHistoryWidget);
-
-function applyCSS(plugin: RNPlugin) {
-	if (cachedStyles === null) {
-		fetch(`${plugin.rootURL}App.css`)
-			.then((response) => response.text())
-			.then((css) => {
-				cachedStyles = css;
-			})
-			.catch((error) => {
-				console.error('Failed to fetch CSS file:', error);
-			});
-	}
-	const styles = cachedStyles;
-
-	const extraCSS = useRunAsync(async () => {
-		return `
-			.square-again {
-				background-color: ${await plugin.settings.getSetting('square-again-color')};
-			}
-			.square-easy {
-				background-color: ${await plugin.settings.getSetting('square-easy-color')};
-			}
-			.square-good {
-				background-color: ${await plugin.settings.getSetting('square-good-color')};
-			}
-			.square-hard {
-				background-color: ${await plugin.settings.getSetting('square-hard-color')};
-			}
-			.square-reset {
-				background-color: purple;
-			}
-			.square-too-early {
-				background-color: gray;
-			}
-			.square-viewed-as-leech {
-				background-color: gray;
-			}
-			`;
-	}, []);
-
-	// if styles are already applied in style element, add the extra css to the existing style element
-	const styleElement = document.querySelector('style');
-	if (styleElement) {
-		styleElement.innerHTML += extraCSS;
-	} else {
-		const styleElement = document.createElement('style');
-
-		styleElement.innerHTML = styles + extraCSS;
-		document.head.appendChild(styleElement);
-	}
-
-	// // Add the styles to the head of the document
-	// const styleElement = document.createElement('style');
-
-	// styleElement.innerHTML = styles + extraCSS;
-	// document.head.appendChild(styleElement);
-}

@@ -47,7 +47,7 @@ const config = {
 			{
 				test: /\.css$/i,
 				use: [
-					isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+					MiniCssExtractPlugin.loader,
 					{ loader: 'css-loader', options: { url: false } },
 					'postcss-loader',
 				],
@@ -55,11 +55,9 @@ const config = {
 		],
 	},
 	plugins: [
-		isDevelopment
-			? undefined
-			: new MiniCssExtractPlugin({
-					filename: '[name].css',
-			  }),
+		new MiniCssExtractPlugin({
+			filename: 'App.css',
+		}),
 		new HtmlWebpackPlugin({
 			templateContent: `
       <body></body>
@@ -91,10 +89,7 @@ const config = {
 			raw: true,
 		}),
 		new CopyPlugin({
-			patterns: [
-				{ from: 'public', to: '' },
-				{ from: 'README.md', to: '' },
-			],
+			patterns: [{ from: 'public', to: '' }],
 		}),
 		fastRefresh,
 	].filter(Boolean),

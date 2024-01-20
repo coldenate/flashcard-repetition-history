@@ -5,6 +5,7 @@ import {
 	RNPlugin,
 	WidgetLocation,
 } from '@remnote/plugin-sdk';
+import '../style.css';
 
 async function onActivate(plugin: ReactRNPlugin) {
 	await plugin.app.registerWidget('ratingHistory', WidgetLocation.FlashcardUnder, {
@@ -105,6 +106,24 @@ async function onActivate(plugin: ReactRNPlugin) {
 	// commands
 
 	plugin.track(async (reactivePlugin) => {
+		// custom css
+		console.log('s');
+		try {
+			await plugin.app.registerCSS(
+				'ratingHistory-CSS',
+				`.square-again { background-color: ${await plugin.settings.getSetting(
+					'square-again-color'
+				)}; }
+				 .square-easy { background-color: ${await plugin.settings.getSetting('square-easy-color')}; }
+				 .square-good { background-color: ${await plugin.settings.getSetting('square-good-color')}; }
+				 .square-hard { background-color: ${await plugin.settings.getSetting('square-hard-color')}; }
+				 .square-reset { background-color: purple; }
+				 .square-too-early { background-color: gray; }
+				 .square-viewed-as-leech { background-color: gray; }`
+			);
+		} catch (error) {
+			console.error('Error registering CSS:', error);
+		}
 		await isDebugMode(reactivePlugin).then(async (debugMode) => {
 			if (debugMode) {
 				plugin.app.toast('Debug Mode Enabled; Registering Debug Tools');
