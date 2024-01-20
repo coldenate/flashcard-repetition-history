@@ -31,8 +31,6 @@ Flashcard Repetition History allows you to customize your experience through var
 
 2. **Inherit Square Colors from Highlight Colors**: If enabled, the color of the squares will match the highlight colors[^1]. If disabled, the squares will use the default colors or the colors you set individually.
 
-3. **Always Show Squares**: This setting controls the visibility of the squares for the responses. If enabled, the squares will always be shown. If disabled, the squares will only be shown when responding to a flashcard.
-
 ## 📅 Planned Features
 
 -   [ ] Improved and Original Design

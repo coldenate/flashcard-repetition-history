@@ -7,6 +7,12 @@ import {
 } from '@remnote/plugin-sdk';
 
 async function onActivate(plugin: ReactRNPlugin) {
+	await plugin.app.registerWidget('ratingHistory', WidgetLocation.FlashcardUnder, {
+		dimensions: {
+			width: '100%',
+			height: '100%',
+		},
+	});
 	// settings
 
 	await plugin.settings.registerBooleanSetting({
@@ -32,12 +38,12 @@ async function onActivate(plugin: ReactRNPlugin) {
 		defaultValue: true,
 	});
 
-	await plugin.settings.registerBooleanSetting({
-		id: 'always-show-squares',
-		title: 'Always Show Squares',
-		description: 'Always show the squares for the responses',
-		defaultValue: false,
-	});
+	// await plugin.settings.registerBooleanSetting({
+	// 	id: 'always-show-squares',
+	// 	title: 'Always Show Squares',
+	// 	description: 'Always show the squares for the responses',
+	// 	defaultValue: false,
+	// });
 
 	// css settings
 
@@ -99,24 +105,6 @@ async function onActivate(plugin: ReactRNPlugin) {
 	// commands
 
 	plugin.track(async (reactivePlugin) => {
-		const alwaysShowSquares = await reactivePlugin.settings.getSetting('always-show-squares');
-		if (!alwaysShowSquares) {
-			await plugin.app.registerWidget('ratingHistory', WidgetLocation.FlashcardUnder, {
-				dimensions: {
-					width: '100%',
-					height: '100%',
-				},
-			});
-			await plugin.app.unregisterWidget('ratingHistory', WidgetLocation.FlashcardUnder);
-		} else if (alwaysShowSquares) {
-			await plugin.app.registerWidget('ratingHistory', WidgetLocation.FlashcardUnder, {
-				dimensions: {
-					width: '100%',
-					height: '100%',
-				},
-			});
-			await plugin.app.unregisterWidget('ratingHistory', WidgetLocation.FlashcardUnder);
-		}
 		await isDebugMode(reactivePlugin).then(async (debugMode) => {
 			if (debugMode) {
 				plugin.app.toast('Debug Mode Enabled; Registering Debug Tools');
