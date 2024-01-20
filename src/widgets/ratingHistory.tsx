@@ -9,7 +9,26 @@ import { useEffect, useState } from 'react';
 
 let cachedStyles;
 
-function scoreToStringClassMatch(score: number) {
+function scoreToStringClassMatch(score: number, pretty: boolean = false) {
+	if (pretty) {
+		switch (score) {
+			case 0:
+				return 'Again';
+			case 1:
+				return 'Good';
+			case 0.5:
+				return 'Hard';
+			case 1.5:
+				return 'Easy';
+			case 3:
+				return 'Reset';
+			case 0.01:
+				return 'Too Early';
+			case 2:
+				return 'Viewed as Leech';
+		}
+	}
+
 	let stringScore = '';
 	switch (score) {
 		case 0:
@@ -115,7 +134,9 @@ function RatingHistoryWidget() {
 								} tooltip`}
 								key={history.date}
 							>
-								<span className="tooltiptext">{history.score}</span>
+								<span className="tooltiptext">
+									{scoreToStringClassMatch(history.score, true)}
+								</span>
 							</div>
 						);
 					})}
@@ -137,7 +158,6 @@ function applyCSS(plugin: RNPlugin) {
 				console.error('Failed to fetch CSS file:', error);
 			});
 	}
-
 	const styles = cachedStyles;
 
 	const extraCSS = useRunAsync(async () => {
