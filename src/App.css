@@ -1,0 +1,116 @@
+body {
+	font-family:
+		ui-monospace,
+		SFMono-Regular,
+		SF Mono,
+		Menlo,
+		Consolas,
+		Liberation Mono,
+		monospace;
+}
+
+body.dark {
+	background-color: transparent;
+}
+
+.square {
+	height: 20px;
+	width: 20px;
+	margin: 5px;
+	border-radius: 5px;
+}
+
+#legend {
+	background-color: var(--rn-clr-background-secondary);
+	border-radius: 8px;
+	width: max-content;
+	padding: 5px;
+}
+
+#legend-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+#squares {
+	max-width: 660px;
+	flex-wrap: wrap;
+}
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+}
+
+.tooltip .tooltiptext {
+	visibility: visible;
+	opacity: 0;
+	transition: opacity 0.3s;
+	width: auto;
+	height: auto;
+	color: var(--rn-clr-content-primary);
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	position: absolute;
+	z-index: 1;
+	top: 200%;
+	left: 50%;
+	font-size: 20px;
+	line-height: normal;
+	transform: translateX(-50%);
+}
+
+.tooltip:hover .tooltiptext {
+	opacity: 1;
+}
+
+.legend-label {
+	display: flex;
+	align-items: center;
+	text-align: center;
+	font-weight: 1000;
+	font-size: 15px;
+	padding-left: 8px;
+	color: var(--rn-clr-content-secondary);
+}
+
+.widget-container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 20px;
+	padding: 20px;
+	padding-bottom: 40px;
+	background: var(--rn-clr-background-secondary);
+	border-radius: 12px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	color: var(--rn-clr-content-primary);
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.widget-item {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 10px;
+	background: var(--rn-clr-background-primary);
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	height: 100%;
+}
+
+.widget-title {
+	margin: 0;
+	margin-top: auto;
+	font-weight: 500;
+	font-size: 12px;
+	color: var(--rn-clr-content-secondary);
+}
+
+.widget-value {
+	margin: 0;
+	font-weight: bold;
+	font-size: 20px;
+	color: var(--rn-clr-content-primary);
+}

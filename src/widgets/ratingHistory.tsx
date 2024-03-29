@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
 	RNPlugin,
 	WidgetLocation,
@@ -5,84 +6,57 @@ import {
 	usePlugin,
 	useRunAsync,
 } from '@remnote/plugin-sdk';
-import { useEffect, useState } from 'react';
+import './../App.css';
 
-let cachedStyles;
+enum Score {
+	Forgot = 0,
+	RecalledWithEffort = 1,
+	PartiallyRecalled = 0.5,
+	EasilyRecalled = 1.5,
+	Reset = 3,
+	TooEarly = 0.01,
+	ViewedAsLeech = 2,
+}
+
+enum Color {
+	Red = 0,
+	Green = 1,
+	Orange = 0.5,
+	Blue = 1.5,
+	Purple = 3,
+	Yellow = 0.01,
+}
 
 function scoreToStringClassMatch(score: number, pretty: boolean = false) {
+	const scoreToStringMap: { [key: number]: string } = {
+		[Score.Forgot]: 'Forgot',
+		[Score.RecalledWithEffort]: 'Recalled with Effort',
+		[Score.PartiallyRecalled]: 'Partially Recalled',
+		[Score.EasilyRecalled]: 'Easily Recalled',
+		[Score.Reset]: 'Reset',
+		[Score.TooEarly]: 'Too Early',
+		[Score.ViewedAsLeech]: 'Viewed as Leech',
+	};
+
 	if (pretty) {
-		switch (score) {
-			case 0:
-				return 'Again';
-			case 1:
-				return 'Good';
-			case 0.5:
-				return 'Hard';
-			case 1.5:
-				return 'Easy';
-			case 3:
-				return 'Reset';
-			case 0.01:
-				return 'Too Early';
-			case 2:
-				return 'Viewed as Leech';
-		}
+		return scoreToStringMap[score] || '';
 	}
 
-	let stringScore = '';
-	switch (score) {
-		case 0:
-			stringScore = 'again';
-			break;
-		case 1:
-			stringScore = 'good';
-			break;
-		case 0.5:
-			stringScore = 'hard';
-			break;
-		case 1.5:
-			stringScore = 'easy';
-			break;
-		case 3:
-			stringScore = 'reset';
-			break;
-		case 0.01:
-			stringScore = 'too-early';
-			break;
-		case 2:
-			stringScore = 'viewed-as-leech';
-			break;
-	}
-
-	return 'square-' + stringScore;
+	const stringScore = scoreToStringMap[score] || '';
+	return 'square-' + stringScore.toLowerCase().replace(/\s+/g, '-');
 }
 
 function scoreToColorClassMatch(score: number) {
-	let stringColor = '';
+	const colorToStringMap: { [key: number]: string } = {
+		[Color.Red]: 'red',
+		[Color.Green]: 'green',
+		[Color.Orange]: 'orange',
+		[Color.Blue]: 'blue',
+		[Color.Purple]: 'purple',
+		[Color.Yellow]: 'yellow',
+	};
 
-	switch (score) {
-		case 0:
-			stringColor = 'red';
-			break;
-		case 1:
-			stringColor = 'green';
-			break;
-		case 0.5:
-			stringColor = 'orange';
-			break;
-		case 1.5:
-			stringColor = 'blue';
-			break;
-		case 3:
-			stringColor = 'purple';
-			break;
-		case 0.01:
-			stringColor = 'yellow';
-			break;
-		case 2:
-			return 'square-viewed-as-leech';
-	}
-
+	const stringColor = colorToStringMap[score] || '';
 	return 'highlight-color--' + stringColor;
 }
 
@@ -120,18 +94,36 @@ function RatingHistoryWidget() {
 				<div id="squares">
 					{/* for each repetition history, build a square accordingly */}
 					{repetitionHistory.map((history) => {
-						let className: string = '';
-						let tooltipText = scoreToStringClassMatch(history.score, true);
+						// const className = inheritFromHighlightColors
+						// 	? scoreToColorClassMatch(history.score)
+						// 	: scoreToStringClassMatch(history.score);
 
-						if (inheritFromHighlightColors) {
-							className = scoreToColorClassMatch(history.score);
-						} else {
-							className = scoreToStringClassMatch(history.score);
-						}
+						const className = scoreToColorClassMatch(history.score);
 
 						return (
-							<div className={className} key={history.date}>
-								<span className="tooltiptext">{tooltipText}</span>
+							<div className={`tooltip square ${className}`} key={history.date}>
+								<span className="tooltiptext">
+									<div className="widget-container">
+										<div className="widget-item">
+											<p className="widget-value">
+												{scoreToStringClassMatch(history.score, true)}
+											</p>
+											<h4 className="widget-title">Pressed</h4>
+										</div>
+										<div className="widget-item">
+											<p className="widget-value">
+												{Math.round(history.responseTime / 1000)} seconds
+											</p>
+											<h4 className="widget-title">Response Time</h4>
+										</div>
+										<div className="widget-item">
+											<p className="widget-value">
+												{new Date(history.date).toLocaleDateString()}
+											</p>
+											<h4 className="widget-title">Practice Date</h4>
+										</div>
+									</div>
+								</span>
 							</div>
 						);
 					})}
@@ -140,4 +132,5 @@ function RatingHistoryWidget() {
 		</div>
 	);
 }
+
 renderWidget(RatingHistoryWidget);

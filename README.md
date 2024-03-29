@@ -33,10 +33,9 @@ Flashcard Repetition History allows you to customize your experience through var
 
 ## 📅 Planned Features
 
--   [ ] Improved and Original Design
+-   [x] Improved and Original Design
 -   [ ] Show Past Response (kinda like a ghost frame in animation)
 -   [ ] **Full** compatibliity with custom themes
--   [ ] Support for mobile devices
 
 Have an idea for a new feature? Feel free to open an issue or submit a pull request!
 

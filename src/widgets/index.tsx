@@ -5,13 +5,12 @@ import {
 	RNPlugin,
 	WidgetLocation,
 } from '@remnote/plugin-sdk';
-import '../style.css';
 
 async function onActivate(plugin: ReactRNPlugin) {
 	await plugin.app.registerWidget('ratingHistory', WidgetLocation.FlashcardUnder, {
 		dimensions: {
 			width: '100%',
-			height: '100%',
+			height: '25rem',
 		},
 	});
 	// settings
@@ -107,10 +106,9 @@ async function onActivate(plugin: ReactRNPlugin) {
 
 	plugin.track(async (reactivePlugin) => {
 		// custom css
-		console.log('s');
 		try {
 			await plugin.app.registerCSS(
-				'ratingHistory-CSS',
+				'ratingHistory',
 				`.square-again { background-color: ${await plugin.settings.getSetting(
 					'square-again-color'
 				)}; }

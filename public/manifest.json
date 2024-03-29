@@ -9,8 +9,8 @@
 	"changeLogUrl": "https://github.com/coldenate/flashcard-repetition-history/releases",
 	"version": {
 		"major": 1,
-		"minor": 1,
-		"patch": 5
+		"minor": 2,
+		"patch": 0
 	},
 	"theme": [],
 	"enableOnMobile": true,
