@@ -122,6 +122,16 @@ function RatingHistoryWidget() {
 											</p>
 											<h4 className="widget-title">Practice Date</h4>
 										</div>
+										{history.scheduled && (
+											<div className="widget-item">
+												<p className="widget-value">
+													{new Date(
+														history.scheduled
+													).toLocaleDateString()}
+												</p>
+												<h4 className="widget-title">Next Interval</h4>
+											</div>
+										)}
 									</div>
 								</span>
 							</div>
