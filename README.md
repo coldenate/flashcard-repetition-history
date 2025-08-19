@@ -92,7 +92,7 @@ The concept of an interval increase factor is central to spaced repetition. The 
 
 > "number associated with each memorized element. It equals to the ratio of the current interval and the previously used interval. ... The greater the U-Factor the greater the increase of the interval between repetitions. ... U in U-Factor stands for _used interval increase_"
 
-This is a measure of the stabilization of your __memory traces__ due to successful recall, as measured by your Spaced Repetition System (SRS) algorithm's memory model. Each time you successfully recall a flashcard, your memory traces get stronger, making them take longer to fade away. The slope of your __memory forgetting curve__ decreases, so you don't have to review that item as soon.
+This is a measure of the __stabilization__ of your __memory traces__ due to successful recall, as measured by your Spaced Repetition System (SRS) algorithm's memory model. Each time you successfully recall a flashcard, your memory traces get stronger, making them take longer to fade away. The slope of your __memory forgetting curve__ decreases, so you don't have to review that item as soon.
 
 In simple terms, the __U-Factor__ is a measure of the empowerment your memory gained from that review, as calculated by your SRS algorithm. It's the ratio of the __new interval__ divided by the __last used interval__.
 
@@ -133,7 +133,9 @@ This plugin is highly customizable via the ```Settings > Plugin Settings``` menu
 | **Review Delay** | How late a specific review was, compared to its scheduled date. |
 | **Used Interval** | The actual time that passed between two reviews (**Calculated Interval** + **Review Delay**). |
 | **Overdue Ratio** | A percentage comparing the **Used Interval** to the **Calculated Interval**. >100% means you were on time. >200% means you took twice as long as you should have. |
-| **U-Factor** | "Used Interval Increase." The ratio of the new **Next Interval** divided by the last **Used Interval**. Measures how fast the interval is growing. |
+| **U-Factor** | "Used Interval Increase." The ratio of the new **Next Interval** divided by the last **Used Interval**. Measures how fast the interval (and your memory stability) is growing. |
+| **Memory Stability** | How long a memory can last if not retrieved. |
+
 
 ## 🚧 Known Issues
  * In __multi-line cards__, where RemNote now stores sub-card info (a specific schedule record for each sub-item), the row of squares becomes somewhat cluttered and maybe not as meaningful.
