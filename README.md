@@ -49,6 +49,8 @@ Overdueness is a measure of how late you are for a scheduled review. It's calcul
 
 ⚫ Dark Red Border: Critically overdue (e.g., more than 3x the interval).
 
+<img src="assets/overduebordercolors.png" alt="A legend showing the border colors for overdue flashcards" height="300">
+
 __A Quick Caveat:__ To avoid confusion, remember this simple rule:
 
  * __Fill Color = How well you remembered.__
