@@ -134,7 +134,7 @@ This plugin is highly customizable via the ```Settings > Plugin Settings``` menu
 | **Used Interval** | The actual time that passed between two reviews (**Calculated Interval** + **Review Delay**). |
 | **Overdue Ratio** | A percentage comparing the **Used Interval** to the **Calculated Interval**. >100% means you were on time. >200% means you took twice as long as you should have. |
 | **U-Factor** | "Used Interval Increase." The ratio of the new **Next Interval** divided by the last **Used Interval**. Measures how fast the interval (and your memory stability) is growing. |
-| **Memory Stability** | How long a memory can last if not retrieved. |
+| **Stability of Memory** | How long a memory can last if not retrieved. |
 
 
 ## 🚧 Known Issues
