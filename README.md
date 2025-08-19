@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/coldenate/flashcard-repetition-history/main/assets/preview.gif" alt="Flashcard Repetition History in Action">
+<img src="assets/simplemode.gif" alt="Simple Mode">
 </p>
 
 ## 🤔 Why You Should Use This Plugin
@@ -25,6 +25,10 @@ To provide the best experience for everyone, this plugin operates in two modes, 
   * __Simple Mode (Default):__ A clean, minimalist view that shows your performance history at a glance. It's perfect for daily reviews without overwhelming you with data.
 
   * __Advanced Mode:__ Unlocks a powerful suite of analytics for users who want to dive deeper into their spaced repetition metrics. It reveals detailed statistics and new visual cues to help you truly understand your memory's behavior.
+
+<p align="center">
+<img src="assets/advancedmode.gif" alt="Advanced Mode">
+</p>
 
 ## 🎨 How It Works: The Visuals
 The plugin displays a row of squares for each flashcard. Each square is a time capsule of a single review session, giving you information through two visual cues: its fill color and its border color.
