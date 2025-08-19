@@ -136,7 +136,8 @@ This plugin is highly customizable via the ```Settings > Plugin Settings``` menu
 | **U-Factor** | "Used Interval Increase." The ratio of the new **Next Interval** divided by the last **Used Interval**. Measures how fast the interval is growing. |
 
 ## 🚧 Known Issues
-When used with the Incremental Everything plugin, the history widget may be hidden on the back of the card after pressing "Show Answer." This is due to a plugin conflict that we are working to resolve.
+ * In __multi-line cards__, where RemNote now stores sub-card info (a specific schedule record for each sub-item), the row of squares becomes somewhat cluttered and maybe not as meaningful.
+ * When used with the __Incremental Everything plugin__, the history widget may be hidden on the back of the card after pressing "Show Answer." This is due to a plugin conflict that we are working to resolve.
 
 <p align="center">
 📆 Copyright &copy; 2023 <a href="https://github.com/coldenate" target="_blank">coldenate / Nathan Solis</a>
