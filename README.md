@@ -82,7 +82,7 @@ Unlocks a full suite of SRS analytics:
 
 * __Used Interval:__ The actual time that passed between this review and the previous one.
 
-* __Overdue Ratio:__ (Used Interval / Next Interval) shown as a percentage.
+* __Overdue Ratio:__ (Used Interval / Old Calculated Interval) shown as a percentage.
 
 * __U-Factor (Used Interval Increase):__ A powerful metric that shows how much the __New Interval__ you got after rating the card grew compared to the __last Used Interval__ (time between your previous repetition and that specific repetition).
 
@@ -131,7 +131,7 @@ This plugin is highly customizable via the ```Settings > Plugin Settings``` menu
 | :--- | :--- |
 | **Next Interval** | The ideal waiting time calculated by the SRS algorithm after a review. |
 | **Review Delay** | How late a specific review was, compared to its scheduled date. |
-| **Used Interval** | The actual time that passed between two reviews (**Calculated Interval** + **Review Delay**). |
+| **Used Interval** | The actual time that passed between two reviews (**Old Calculated Interval** + **Review Delay**). |
 | **Overdue Ratio** | A percentage comparing the **Used Interval** to the **Calculated Interval**. >100% means you were on time. >200% means you took twice as long as you should have. |
 | **U-Factor** | "Used Interval Increase." The ratio of the new **Next Interval** divided by the last **Used Interval**. Measures how fast the interval (and your memory stability) is growing. |
 | **Stability of Memory** | How long a memory can last if not retrieved. |
