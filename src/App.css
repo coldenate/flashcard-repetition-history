@@ -1,16 +1,6 @@
 body {
-	font-family:
-		ui-monospace,
-		SFMono-Regular,
-		SF Mono,
-		Menlo,
-		Consolas,
-		Liberation Mono,
+	font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono,
 		monospace;
-}
-
-body.dark {
-	background-color: transparent;
 }
 
 .square {
@@ -18,10 +8,9 @@ body.dark {
 	width: 20px;
 	margin: 5px;
 	border-radius: 5px;
-	border: 2px solid transparent; /* ADD THIS to create a border on all squares */
+	border: 2px solid transparent;
+	cursor: pointer;
 }
-
-
 
 #legend {
 	background-color: var(--rn-clr-background-secondary);
@@ -30,82 +19,62 @@ body.dark {
 	padding: 5px;
 }
 
-
 #legend-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-evenly;
 }
 
+div[data-widget-id='ratingHistory'] {
+	flex-shrink: 0 !important;
+	min-height: 40px !important;
+}
+
 #squares {
+	display: flex;
 	max-width: 660px;
 	flex-wrap: wrap;
 }
 
-.tooltip {
-	position: relative;
-	display: inline-block;
-}
-
-.tooltip .tooltiptext {
-	visibility: hidden; /* Changed from visible to hidden for better initial state */
+/* NEW: Style for our single, JavaScript-controlled tooltip */
+.floating-tooltip {
+	position: fixed;
+	z-index: 9999;
 	opacity: 0;
-	transition: opacity 0.3s;
-	width: auto;
-	height: auto;
-	color: var(--rn-clr-content-primary);
-	text-align: center;
-	border-radius: 6px;
-	position: absolute;
-	z-index: 1;
-	top: 140%; /* REVISED: Brought tooltip closer to the squares */
-	left: 50%;
-	font-size: 20px;
-	line-height: normal;
-	transform: translateX(-50%);
+	transition: opacity 0.2s;
+	pointer-events: none;
 }
 
-.tooltip:hover .tooltiptext {
-	visibility: visible;
+.floating-tooltip.visible {
 	opacity: 1;
-}
-
-.legend-label {
-	display: flex;
-	align-items: center;
-	text-align: center;
-	font-weight: 1000;
-	font-size: 15px;
-	padding-left: 8px;
-	color: var(--rn-clr-content-secondary);
 }
 
 .widget-container {
 	display: grid;
-	gap: 8px; /* REVISED: Reduced gap */
-	padding: 12px; /* REVISED: Reduced padding */
+	gap: 8px;
+	padding: 12px;
 	background: var(--rn-clr-background-secondary);
 	border-radius: 12px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	color: var(--rn-clr-content-primary);
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-	/* REVISED: Kept a 3-column grid for compactness */
-	grid-template-columns: repeat(3, 1fr);
-	min-width: 320px; /* REVISED: Added a min-width */
+	grid-template-columns: repeat(2, 1fr);
+	min-width: 250px;
 }
 
-/* REMOVED: The media query that forced a 2-column layout is gone. 
-   A 3-column layout is more compact for this amount of data. */
+.widget-container.advanced-mode {
+	grid-template-columns: repeat(3, 1fr);
+	min-width: 250px;
+}
 
 .widget-item {
 	display: flex;
 	flex-direction: column;
-	justify-content: center; /* REVISED: Centered content vertically */
-	text-align: center; /* REVISED: Centered text */
-	padding: 8px; /* REVISED: Reduced padding */
+	justify-content: center;
+	text-align: center;
+	padding: 8px;
 	background: var(--rn-clr-background-primary);
 	border-radius: 8px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* REVISED: Subtler shadow */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .widget-title,
@@ -116,55 +85,16 @@ body.dark {
 }
 
 .widget-title {
-	margin-top: 4px; /* REVISED: Drastically reduced top margin */
-	font-size: 11px; /* REVISED: Made title font smaller */
+	margin-top: 4px;
+	font-size: 11px;
 }
 
 .widget-value {
-	font-weight: 600; /* REVISED: Slightly adjusted font-weight */
-	font-size: 16px; /* REVISED: Made value font smaller */
+	font-weight: 600;
+	font-size: 16px;
 	color: var(--rn-clr-content-primary);
 }
 
-/* Add these new rules to your app.css file */
-
-/* For visually distinguishing the current repetition square */
 .square-current-distinct {
 	box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 }
-
-/* Colors for the overdue status */
-.overdue-line-low {
-	border-color: #5b9bd5; /* Blue */
-}
-.overdue-line-medium {
-	border-color: #ffc000; /* Yellow */
-}
-.overdue-line-high {
-	border-color: #ed7d31; /* Orange */
-}
-.overdue-line-very-high {
-	border-color: #ff5c5c; /* Light Red */
-}
-.overdue-line-critical {
-	border-color: #c00000; /* Dark Red */
-}
-
-/* These classes are now for FILLING the current repetition square */
-.overdue-fill-low {
-	background-color: #5b9bd5; /* Blue */
-}
-.overdue-fill-medium {
-	background-color: #ffc000; /* Yellow */
-}
-.overdue-fill-high {
-	background-color: #ed7d31; /* Orange */
-}
-.overdue-fill-very-high {
-	background-color: #ff5c5c; /* Light Red */
-}
-.overdue-fill-critical {
-	background-color: #c00000; /* Dark Red */
-}
-
-
