@@ -3,8 +3,10 @@
 </h1>
 
 <h3 align="center">
-📚 Flashcard Repetition History: Turn Your Learning Intuition into Data! 📖
+📚 Flashcard Repetition History: Visualize your learning progress! 📖
 </h3>
+<p align="center"> and turn Your Learning Intuition into Data!</p>
+
 
 <p align="center">
 <a href="https://github.com/coldenate/flashcard-repetition-history/stargazers"><img src="https://img.shields.io/github/stars/coldenate/flashcard-repetition-history?colorA=363a4f&colorB=b7bdf8&style=for-the-badge" alt="GitHub Stars"></a>
