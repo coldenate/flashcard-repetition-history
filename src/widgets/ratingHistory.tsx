@@ -52,6 +52,9 @@ function scoreToFillColor(score: number, settings: Record<string, unknown>): str
 		[Score.PartiallyRecalled]: 'square-hard-color',
 		[Score.RecalledWithEffort]: 'square-good-color',
 		[Score.EasilyRecalled]: 'square-easy-color',
+		[Score.Reset]: 'square-reset-color',
+		[Score.TooEarly]: 'square-too-early-color',
+		[Score.ViewedAsLeech]: 'square-viewed-as-leech-color',
 	};
 	const settingId = scoreMap[score];
 	if (!settingId) {
@@ -152,6 +155,9 @@ function RatingHistoryWidget() {
 			'square-hard-color',
 			'square-good-color',
 			'square-easy-color',
+			'square-reset-color',
+			'square-too-early-color',
+			'square-viewed-as-leech-color',
 			'border-color-low',
 			'border-color-medium',
 			'border-color-high',
