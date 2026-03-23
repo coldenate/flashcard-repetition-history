@@ -34,7 +34,7 @@ function getSetting<T>(settings: Record<string, unknown>, key: string, defaultVa
 
 // Returns the RemNote highlight class, e.g., 'highlight-color--green'
 function scoreToHighlightColorClass(score: number): string {
-	const colorMap = {
+	const colorMap: Record<number, string> = {
 		[Color.Red]: 'red',
 		[Color.Green]: 'green',
 		[Color.Orange]: 'orange',
@@ -47,7 +47,7 @@ function scoreToHighlightColorClass(score: number): string {
 
 // Returns the user's custom color HEX code from settings
 function scoreToFillColor(score: number, settings: Record<string, unknown>): string {
-	const scoreMap = {
+	const scoreMap: Record<number, string> = {
 		[Score.Forgot]: 'square-forgot-color',
 		[Score.PartiallyRecalled]: 'square-hard-color',
 		[Score.RecalledWithEffort]: 'square-good-color',
@@ -85,7 +85,7 @@ function scoreToLabel(score: number, gradeLabelStyle: string): string {
 		[Score.ViewedAsLeech]: 'Viewed as Leech',
 	};
 
-	const labelMap = gradeLabelStyle === 'anki' ? ankiLabelMap : remnoteLabelMap;
+	const labelMap: Record<number, string> = gradeLabelStyle === 'anki' ? ankiLabelMap : remnoteLabelMap;
 	return labelMap[score] || '';
 }
 
@@ -181,11 +181,24 @@ function RatingHistoryWidget() {
 		}
 	}, [card, settings]);
 
+	// Collapse the iframe height to 0 when there's no card to render
+	// (e.g. when QueueItemType is Plugin = 15), so the widget doesn't
+	// occupy space that other plugins like Incremental Everything need.
+	useEffect(() => {
+		if (!card) {
+			document.documentElement.style.height = '0';
+			document.body.style.height = '0';
+		} else {
+			document.documentElement.style.height = '';
+			document.body.style.height = '';
+		}
+	}, [card]);
+
 	if (loading || !card || !settings) {
 		return <></>;
 	}
 
-	const mode = getSetting(settings, 'mode', 'simple');
+	const mode = getSetting<string>(settings, 'mode', 'simple');
 	const inheritColors = getSetting(settings, 'inherit-from-highlight-colors', true);
 	const gradeLabelStyle = getSetting(settings, 'grade-label-style', 'remnote');
 	const showOverdueBorders = getSetting(settings, 'show-overdue-borders', true);
@@ -201,11 +214,11 @@ function RatingHistoryWidget() {
 
 	if (card.repetitionHistory && card.repetitionHistory.length > 0) {
 		totalReviews = card.repetitionHistory.length;
-		totalReviewTimeMs = card.repetitionHistory.reduce((s, h) => s + h.responseTime, 0);
+		totalReviewTimeMs = card.repetitionHistory.reduce((s, h) => s + (h.responseTime ?? 0), 0);
 
 		if (card.nextRepetitionTime) {
 			const last = card.repetitionHistory[card.repetitionHistory.length - 1];
-			currentNextIntervalMs = card.nextRepetitionTime - last.date;
+			currentNextIntervalMs = card.nextRepetitionTime - Number(last.date);
 			const now = new Date().getTime();
 			if (now > card.nextRepetitionTime) {
 				currentDelayMs = now - card.nextRepetitionTime;
@@ -248,7 +261,7 @@ function RatingHistoryWidget() {
 	};
 
 	return (
-		<>
+		<div style={{ minHeight: '18rem' }}>
 			<div
 				ref={tooltipRef}
 				className={`floating-tooltip ${tooltip.visible ? 'visible' : ''}`}
@@ -265,22 +278,22 @@ function RatingHistoryWidget() {
 							const nextHistory = isLast ? null : array[index + 1];
 							const nextIntervalMs = isLast
 								? card.nextRepetitionTime
-									? card.nextRepetitionTime - history.date
+									? card.nextRepetitionTime - Number(history.date)
 									: 0
 								: nextHistory?.scheduled
-								? nextHistory.scheduled - history.date
+								? Number(nextHistory.scheduled) - Number(history.date)
 								: 0;
 
 							const isFirst = index === 0;
 							const prevHistory = isFirst ? null : array[index - 1];
 							const calculatedIntervalMs =
-								!isFirst && prevHistory ? history.scheduled - prevHistory.date : 0;
+								!isFirst && prevHistory ? Number(history.scheduled ?? 0) - Number(prevHistory.date) : 0;
 							const reviewDelayMs =
-								history.scheduled && history.date > history.scheduled
-									? history.date - history.scheduled
+								history.scheduled && Number(history.date) > Number(history.scheduled)
+									? Number(history.date) - Number(history.scheduled)
 									: 0;
 							const usedIntervalMs =
-								!isFirst && prevHistory ? history.date - prevHistory.date : 0;
+								!isFirst && prevHistory ? Number(history.date) - Number(prevHistory.date) : 0;
 							const overdueRatio =
 								calculatedIntervalMs > 0 ? usedIntervalMs / calculatedIntervalMs : 1;
 							const uFactor = usedIntervalMs > 0 ? nextIntervalMs / usedIntervalMs : 0;
@@ -313,13 +326,13 @@ function RatingHistoryWidget() {
 									</div>
 									<div className="widget-item">
 										<p className="widget-value">
-											{new Date(history.date).toLocaleDateString()}
+											{new Date(Number(history.date)).toLocaleDateString()}
 										</p>
 										<h4 className="widget-title">Practice Date</h4>
 									</div>
 									<div className="widget-item">
 										<p className="widget-value">
-											{Math.round(history.responseTime / 1000)}s
+											{Math.round((history.responseTime ?? 0) / 1000)}s
 										</p>
 										<h4 className="widget-title">Response Time</h4>
 									</div>
@@ -360,7 +373,7 @@ function RatingHistoryWidget() {
 								<div
 									className={`square ${fillClassName}`}
 									style={style}
-									key={history.date}
+									key={Number(history.date)}
 									onMouseEnter={(e) => handleMouseEnter(e, tooltipContent)}
 									onMouseLeave={handleMouseLeave}
 								/>
@@ -410,7 +423,7 @@ function RatingHistoryWidget() {
 													<div className="widget-item">
 														<p className="widget-value">
 															{new Date(
-																card.nextRepetitionTime
+																card.nextRepetitionTime!
 															).toLocaleDateString()}
 														</p>
 														<h4 className="widget-title">Scheduled Date</h4>
@@ -440,7 +453,7 @@ function RatingHistoryWidget() {
 													<div className="widget-item">
 														<p className="widget-value">
 															{new Date(
-																card.nextRepetitionTime
+																card.nextRepetitionTime!
 															).toLocaleDateString()}
 														</p>
 														<h4 className="widget-title">Scheduled Date</h4>
@@ -483,7 +496,7 @@ function RatingHistoryWidget() {
 					</div>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 }
 
