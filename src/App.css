@@ -27,7 +27,6 @@ body {
 
 div[data-widget-id='ratingHistory'] {
 	flex-shrink: 0 !important;
-	min-height: 40px !important;
 }
 
 #squares {
